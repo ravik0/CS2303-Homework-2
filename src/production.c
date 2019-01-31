@@ -93,14 +93,17 @@ bool production(int argc, char* argv[])
 				if(strlen(oRow)!=0)//there was something there
 				{
 					howManyLinesInFile++;
-					maximumWidth = strlen(oRow);
-					//update maximum width???
+					if(maximumWidth < strlen(oRow)) {
+						maximumWidth = strlen(oRow);
+					}
 				}
 				else
 				{
 					doneReadingFile = true;
 					fclose(fp);
 				}
+				nRows = howManyLinesInFile;
+				nCols = maximumWidth;
 			}
 		}//can read filename
 		else
@@ -299,6 +302,10 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 
 	for(int gensDone = 0; !done && (gensDone<gens); gensDone++)
 	{
+		if(firstTime) {
+			puts("Initial configuration");
+			printThis(nRows, nCols, old_p);
+		}
 		if(!anyX(old_p, nRows, nCols))
 		{//all organisms are dead
 			allOrganismsDead =  true;

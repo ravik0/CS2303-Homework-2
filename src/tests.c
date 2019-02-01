@@ -21,8 +21,14 @@ bool tests(void)
 	if(ok2)puts("Was able to allocate the arrays ok.");
 	bool ok3 = testPlayOne();
 	if(ok3)puts("playOne is ok.");
+	bool ok4 = testNeighbors();
+	if(ok4)puts("howManyNeighbors is ok.");
+	bool ok5 = testAnyX();
+	if(ok5)puts("anyX is ok.");
+	bool ok6 = testSameContent();
+	if(ok6)puts("sameContent is ok.");
 	puts("end of tests");
-	results = ok1 && ok2 && ok3;
+	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6;
 	printf("tests returning %d.\n",results);
 	return results;
 }
@@ -139,9 +145,6 @@ bool testPlayOne(void)
 {
 	bool results = false;
 	bool ok1 = false;
-	bool ok2 = false;
-
-
 	int nRows = 4;
 	int nCols = 3;
 	char boardBefore[4][3]={
@@ -166,7 +169,7 @@ bool testPlayOne(void)
 	{
 		for(int col=0; col<nCols; col++)
 		{
-			if(boardAfter[row][col]!=boardBefore[row][col])
+			if(boardAfter[row][col]!=correctBoardAfter[row][col])
 			{//error found
 				ok1 = false;
 			}
@@ -174,5 +177,56 @@ bool testPlayOne(void)
 	}
 	results = ok1;
 	return results;
+}
 
+bool testNeighbors(void) {
+	char board[4][3]={
+		{'o','x','o'},
+		{'x','o','x'},
+		{'x','x','x'},
+		{'o','x','o'}
+	};
+	int neighborCount = HowManyNeighbors(0, 1, 4, 3, (char*)board);
+	bool ok1 = neighborCount == 2;
+	int count2 = HowManyNeighbors(2, 1, 4, 3, (char*)board);
+	bool ok2 = count2 == 5;
+	return ok1 && ok2;
+}
+
+bool testAnyX(void) {
+	char board[3][3]={
+		{'o','o','o'},
+		{'o','o','o'},
+		{'o','o','o'},
+	};
+	bool ok1 = anyX((char*)board, 3, 3);
+	char board2[3][3]={
+		{'o','o','o'},
+		{'o','x','o'},
+		{'o','o','o'},
+	};
+	bool ok2 = anyX((char*)board2, 3, 3);
+	return !ok1 && ok2;
+}
+
+bool testSameContent(void) {
+	char board1[3][3]={
+		{'o','x','o'},
+		{'o','x','o'},
+		{'o','o','o'},
+	};
+	char board2[3][3]={
+		{'o','x','o'},
+		{'o','x','o'},
+		{'o','o','o'},
+	};
+	char board3[3][3]={
+		{'o','o','o'},
+		{'o','x','o'},
+		{'o','o','o'},
+	};
+	bool ok1 = sameContent((char*)board1, (char*)board2, 3, 3);
+	bool ok2 = !sameContent((char*)board1, (char*)board3, 3, 3);
+	bool ok3 = !sameContent((char*)board3, (char*)board2, 3, 3);
+	return ok1 && ok2 && ok3;
 }

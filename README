@@ -18,3 +18,6 @@ with the width being the longest row length, and any other row will be extended 
 
 However, when a generation passes, if the pattern expands outside of the given nRows/nCols,
 that data will be lost and it will be treated as 'o's, as the arrays will not expand.
+
+Many of the functions were given to us from the sample code. They have been given doxygen 
+comments and some internal comments.

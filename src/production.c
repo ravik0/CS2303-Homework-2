@@ -120,8 +120,8 @@ bool production(int argc, char* argv[])
 		{
 			char A[nRows][nCols];
 			char B[nRows][nCols];
-			char C[nRows][nCols];
-			char* old_p=&A[0][0];
+			char C[nRows][nCols]; //create new arrays
+			char* old_p=&A[0][0]; //get pointers to them
 			char* new_p=&B[0][0];
 			char* other_p=&C[0][0];
 
@@ -309,7 +309,7 @@ void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximum
 		for(int col = 0; col<nCols; col++)
 		{
 			*(ar_p+(row*nCols)+col) = 'o';
-
+			//set array to have all 'o's in it
 		}
 	}
 
@@ -321,13 +321,14 @@ void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximum
 		{
 			fromFile[i]='o';
 		}
-		fscanf(fp, "%s", fromFile);
+		fscanf(fp, "%s", fromFile); //get row from file
 		for(int fcol=0; fcol<maximumWidth; fcol++)
 		{
 			if(fromFile[fcol]=='x')
 			{
 				int targetRow = frow+(nRows-howManyLinesInFile)/2;
-				int targetCol = fcol+(nCols-maximumWidth)/2;
+				int targetCol = fcol+(nCols-maximumWidth)/2; //if found x, put it in the approximate
+				//middle of the array
 				*(ar_p+(targetRow*nCols)+targetCol) = 'x';
 			}
 		}
@@ -407,6 +408,7 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 				puts("Paused waiting for input.");
 				getc(stdin);//just waits for user input
 			}
+			//rotate pointers
 			char* temp = other_p;
 			other_p = old_p;
 			old_p = new_p;
@@ -437,6 +439,7 @@ bool anyX(char* arr, int nRows, int nCols)
 		{
 			if(*(arr+(row*nCols)+col) == 'x')
 			{
+				//if there is an x somewhere, the function will return true.
 				any=true;
 			}
 		}
@@ -462,6 +465,7 @@ bool sameContent(char* one_p, char* another_p, int nRows, int nCols)
 		{
 			if(getLetter(row, col, nCols, one_p) != getLetter(row, col, nCols, another_p))
 			{
+				//if we find something that isn't the same, set return value to false.
 				same=false;
 			}
 		}

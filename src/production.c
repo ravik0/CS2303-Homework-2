@@ -12,10 +12,16 @@
 #include <math.h>
 #include <string.h>
 
+/**
+ * Runs the program by scanning in the file, and sending the file data over to be decrypted
+ * and used by PlayOne and generation
+ * @param int argc the number of arguments
+ * @param char* argv the array of arguments, with [0] being the name of the program
+ * @return true if succeed, false otherwise
+ */
 bool production(int argc, char* argv[])
 {
 	bool results = false;
-	bool ok2; //for opening file
 	bool done = false;
 	int nRows=-1;
 	int nCols = -1;
@@ -51,9 +57,9 @@ bool production(int argc, char* argv[])
 		char* ptr=0;
 		long nr_l = strtol(argv[1],&ptr,10);//get the NR
 		nRows = (int)nr_l;
-		long nc_l = strtol(argv[2],&ptr,10);
+		long nc_l = strtol(argv[2],&ptr,10);//get the NC
 		nCols = (int)nc_l;
-		long ng_l = strtol(argv[3],&ptr,10);
+		long ng_l = strtol(argv[3],&ptr,10);//get the gens
 		gens = (int)ng_l;
 		if(nRows<1)
 		{
@@ -71,8 +77,6 @@ bool production(int argc, char* argv[])
 			done = true;
 		}
 
-		//stuff missing here
-
 		strcpy(filename, argv[4]);
 		//now we have the command line
 		//Let's read the input file
@@ -80,7 +84,6 @@ bool production(int argc, char* argv[])
 		if (fp != false)
 		{//it opened, yay!
 			printf("Opened %s.\n",filename);
-			ok2 = true;
 			//can we read the data?
 			char oRow[100];
 			//Let's find out how many lines there are, and
@@ -94,7 +97,7 @@ bool production(int argc, char* argv[])
 				{
 					howManyLinesInFile++;
 					if(maximumWidth < strlen(oRow)) {
-						maximumWidth = strlen(oRow);
+						maximumWidth = strlen(oRow); //if we find a new biggest row, thats our max width
 					}
 				}
 				else
@@ -102,8 +105,10 @@ bool production(int argc, char* argv[])
 					doneReadingFile = true;
 					fclose(fp);
 				}
-				nRows = howManyLinesInFile;
-				nCols = maximumWidth;
+				//if our file lines are greater than given nRows, increase nRows
+				if(howManyLinesInFile > nRows) nRows = howManyLinesInFile;
+				//if our max width is greater than given nCols, increase nCols
+				if(maximumWidth > nCols) nCols = maximumWidth;
 			}
 		}//can read filename
 		else
@@ -127,6 +132,7 @@ bool production(int argc, char* argv[])
 					A[row][col] = 'o';
 					B[row][col] = 'o';
 					C[row][col] = 'o';
+					//initialize arrays to initially have all 'o's in them
 				}
 			}
 			FILE* fp = fopen(filename, "r");//we read it before, we expect we can read it again
@@ -188,14 +194,38 @@ void PlayOne (unsigned int nr, unsigned int nc, char* Old, char* New)
 	}
 }
 
+/**
+ * Function to print how to give program inputs to the program in case the user puts in the wrong args
+ * @param none
+ * @return none
+ */
 void usage(void)
 {
 	puts("Usage: HW2 NR NC gens input [print] [pause]");
 }
+
+/**
+ * Gets a character from a 2D array
+ * @param int row the row number we want to go to
+ * @param int col the column number we want to go to
+ * @param int nCols the number of columns in the array
+ * @param char* Old a pointer to the 2D array that we want to go through
+ * @return char the letter found at OLd[row][col]
+ */
 char getLetter(int row, int col, int nCols, char* Old)
 {
 	return *(Old+ (row*nCols)+col);
 }
+
+/**
+ * Figures out how many neighbors (defined as 'x's) a character has next to it in Old
+ * @param int row the row for the character we are looking around
+ * @param int col the column for the character we are looking around
+ * @param int nRows the number of rows in Old
+ * @param int nCols the number of columns in OLd
+ * @param char* Old a pointer to the 2D array we are looking through
+ * @return int a number between 0 and 8 for how many 'x's the character at Old[row][col] has around it
+ */
 int HowManyNeighbors(int row, int col, int nRows, int nCols, char* Old)
 {
 	int howManyN = 0;
@@ -261,6 +291,17 @@ int HowManyNeighbors(int row, int col, int nRows, int nCols, char* Old)
 
 	return howManyN;
 }
+
+/**
+ * Takes a file that contains 'o's and 'x's and puts it into a 2D array
+ * @param int nRows the number of rows of the 2D array
+ * @param int nCols the number of columns in the 2D array
+ * @param int howManyLinesInFile the number of lines in the file
+ * @param int maximumWidth the maximum row size found in the file
+ * @param char* ar_p a pointer to the 2D array that is going to be filled
+ * @param FILE* fp a pointer to the file that we are reading
+ * @return none
+ */
 void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximumWidth, char* ar_p, FILE* fp)
 {
 	for(int row = 0; row< nRows; row++)
@@ -292,32 +333,48 @@ void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximum
 		}
 	}
 }
+
+/**
+ * Generates all generations of the given (valid!) gameboard until the end conditions are met or
+ * you reach the maximum number of generations. The end conditions are if a pattern repeats
+ * over one or two generations, or if everyone dies off
+ * @param int gens the number of generations to run the program for
+ * @param int nRows the number of rows in the 2D arrays
+ * @param int nCols the number of colums in the 2D arrays
+ * @param char* old_p a pointer to the initial 2D array that is being changed to the next generation
+ * @param char* new_p a pointer to the new generation created by calling PlayOne on old_p
+ * @param char* other_p a pointer to a generation one before old_p.
+ * @param char print either 'y' or 'n', if 'y' the function prints every generation but if 'n'
+ * it prints only the first and last generation
+ * @param char pause either 'y' or 'n', if 'y' the function waits for a keypress before continuing to
+ * the next generation, if 'n' it proceeds from one generation to the other automatically.
+ * @return int the number of generations passed.
+ */
 int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* other_p, char print, char pause)
 {
 	int g = 0;
-	bool allOrganismsDead = false;
-	bool patternRepeated = false;
 	bool done = false;
 	bool firstTime = true;
 
 	for(int gensDone = 0; !done && (gensDone<gens); gensDone++)
 	{
 		if(firstTime) {
+			//if this is the first run, print initial configuration
 			puts("Initial configuration");
 			printThis(nRows, nCols, old_p);
 		}
 		if(!anyX(old_p, nRows, nCols))
 		{//all organisms are dead
-			allOrganismsDead =  true;
 			done = true;
 			puts("All organisms dead.");
 			printThis(nRows, nCols, old_p);
 		}
-		PlayOne(nRows, nCols, old_p, new_p);
+		PlayOne(nRows, nCols, old_p, new_p); //generate new board and put it in new_p
 		g++;
 		if(sameContent(old_p, new_p, nRows, nCols))
 		{
-			patternRepeated = true;
+			//if old_p and new_p have the same stuff in it, the board is now static and we have
+			//reached a termination condition.
 			done = true;
 			puts("Pattern repeated in one generation.");
 			printThis(nRows, nCols, old_p);
@@ -330,7 +387,8 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 		{
 			if(sameContent(new_p, other_p, nRows, nCols))
 			{
-				patternRepeated = true;
+				//if new_p and other_p have the same things, the board is stuck in a loop and we
+				//have reached a termination condition.
 				puts("Pattern repeated after two generations.");
 				printThis(nRows, nCols, other_p);
 				done= true;
@@ -349,17 +407,27 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 				puts("Paused waiting for input.");
 				getc(stdin);//just waits for user input
 			}
-			//musical chairs for the pointers, i.e., which is old, new, other?
+			char* temp = other_p;
+			other_p = old_p;
+			old_p = new_p;
+			new_p = temp;
 		}
-		char* temp = other_p;
-		other_p = old_p;
-		old_p = new_p;
-		new_p = temp;
-
+		if(gensDone == gens-1) {
+			puts("Final Configuration");
+			printThis(nRows,nCols, new_p);
+		}
 	}//end of generations
 
 	return g;
 }
+
+/**
+ * Checks to see if a 2D array has any 'x's in it
+ * @param char* arr the array to look through
+ * @param nRows the number of rows in arr
+ * @param nCols the number of columns in nCols
+ * @return true if contains an x, false otherwise.
+ */
 bool anyX(char* arr, int nRows, int nCols)
 {
 	bool any = false;
@@ -375,6 +443,15 @@ bool anyX(char* arr, int nRows, int nCols)
 	}
 	return any;
 }
+
+/**
+ * Checks to see if two same-size 2D arrays have the same content
+ * @param char* one_p one of the 2D arrays
+ * @param char* another_p the other 2D array
+ * @param int nRows the number of rows for both of the arrays
+ * @param int nCols the number of columns for both of the arrays
+ * @return true if same content, false otherwise
+ */
 bool sameContent(char* one_p, char* another_p, int nRows, int nCols)
 {
 	bool same = true; //for all the comparisons that have been made so far
@@ -392,13 +469,23 @@ bool sameContent(char* one_p, char* another_p, int nRows, int nCols)
 	return same;
 
 }
+
+/**
+ * Prints the entire 2D array passed into it, giving a blank space if 'o' found and an 'x' if 'x' found
+ * @param int nRows the number of rows in the 2D array
+ * @param int nCols the number of columns in the 2D array
+ * @param char* old_p the pointer to the 2D array
+ * @return none
+ */
 void printThis(int nRows, int nCols, char* old_p)
 {
 	for(int row=0;row<nRows;row++)
 	{
 		for(int col=0;col<nCols;col++)
 		{
-			printf("%c", getLetter(row, col, nCols, old_p));
+			char letter = getLetter(row, col, nCols, old_p);
+			if(letter == 'x') printf("%c", letter); //if its an 'x', print it
+			else printf(" "); //otherwise space
 		}
 		printf("\n");
 	}

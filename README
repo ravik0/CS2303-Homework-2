@@ -1,0 +1,20 @@
+When the program runs, it takes 6 arguments, 4 of which are mandatory:
+1. NR - Number of rows
+2. NC - Number of columns
+3. gens - Number of generations to play out
+4. input - File path of the text file. If file is ran within the HW2 folder, the path is with respect to HW2
+i.e if the file was in src, the path would be src/file.txt
+5. print - "y" or "n" - if y, then it will print every generation. if n, it prints only the first and last
+6. pause - "y" or "n" - if y, then it will run a generation and wait for user input before continuing. 
+if n, it continues on its own.
+
+5 and 6 are the non-mandatory ones - they both will default to n if not given.
+
+When the program parses the files, if nRows/nCols are too small, the program will automatically 
+make nCols and nRows the correct size to fit the program. 
+
+If one row is bigger than the other in the input file, the program will make the rectangular board
+with the width being the longest row length, and any other row will be extended with all 'o's to fit.
+
+However, when a generation passes, if the pattern expands outside of the given nRows/nCols,
+that data will be lost and it will be treated as 'o's, as the arrays will not expand.

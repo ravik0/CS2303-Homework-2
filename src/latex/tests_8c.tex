@@ -1,0 +1,174 @@
+\section{tests.\+c File Reference}
+\label{tests_8c}\index{tests.\+c@{tests.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tests.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}production.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ tests} (void)
+\item 
+bool \textbf{ test\+Read\+Input} (void)
+\item 
+bool \textbf{ test\+Make\+Arrays} (void)
+\item 
+bool \textbf{ test\+Play\+One} (void)
+\item 
+bool \textbf{ test\+Neighbors} (void)
+\item 
+bool \textbf{ test\+AnyX} (void)
+\item 
+bool \textbf{ test\+Same\+Content} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\label{tests_8c_a9136792bde961164c06bcdde7ab1d5f5}} 
+\index{tests.\+c@{tests.\+c}!test\+AnyX@{test\+AnyX}}
+\index{test\+AnyX@{test\+AnyX}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Any\+X()}
+{\footnotesize\ttfamily bool test\+AnyX (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests to make sure that anyX can find an x in an array 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+References any\+X().
+
+
+
+Referenced by tests().
+
+\mbox{\label{tests_8c_af6e338851f3ccb4714e1bfb06ec4b428}} 
+\index{tests.\+c@{tests.\+c}!test\+Make\+Arrays@{test\+Make\+Arrays}}
+\index{test\+Make\+Arrays@{test\+Make\+Arrays}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Make\+Arrays()}
+{\footnotesize\ttfamily bool test\+Make\+Arrays (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests creating an array and populating it 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+Referenced by tests().
+
+\mbox{\label{tests_8c_a3809ae80cb3300c9a6d248b7db6a1a99}} 
+\index{tests.\+c@{tests.\+c}!test\+Neighbors@{test\+Neighbors}}
+\index{test\+Neighbors@{test\+Neighbors}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Neighbors()}
+{\footnotesize\ttfamily bool test\+Neighbors (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests to make sure that the correct number of neighbors are counted around a position in an array. 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+References How\+Many\+Neighbors().
+
+
+
+Referenced by tests().
+
+\mbox{\label{tests_8c_aa4c8095a20d90a18d843ab63ecd02d00}} 
+\index{tests.\+c@{tests.\+c}!test\+Play\+One@{test\+Play\+One}}
+\index{test\+Play\+One@{test\+Play\+One}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Play\+One()}
+{\footnotesize\ttfamily bool test\+Play\+One (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests to make sure play\+One works and generates the correct next\+Board 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+References Play\+One().
+
+
+
+Referenced by tests().
+
+\mbox{\label{tests_8c_aa89f64db87aebe77bd891e2894595e4e}} 
+\index{tests.\+c@{tests.\+c}!test\+Read\+Input@{test\+Read\+Input}}
+\index{test\+Read\+Input@{test\+Read\+Input}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Read\+Input()}
+{\footnotesize\ttfamily bool test\+Read\+Input (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests reading a file into an array 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+Referenced by tests().
+
+\mbox{\label{tests_8c_a5e6e6e78df62797046c9ea173550a68a}} 
+\index{tests.\+c@{tests.\+c}!tests@{tests}}
+\index{tests@{tests}!tests.\+c@{tests.\+c}}
+\subsubsection{tests()}
+{\footnotesize\ttfamily bool tests (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests all the functions in this file to make sure they work 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool true if all pass, false if at least one fails 
+\end{DoxyReturn}
+
+
+References test\+Any\+X(), test\+Make\+Arrays(), test\+Neighbors(), test\+Play\+One(), test\+Read\+Input(), and test\+Same\+Content().
+
+
+
+Referenced by main().
+
+\mbox{\label{tests_8c_a7017056d6783f53023d1f1f0336d3d3e}} 
+\index{tests.\+c@{tests.\+c}!test\+Same\+Content@{test\+Same\+Content}}
+\index{test\+Same\+Content@{test\+Same\+Content}!tests.\+c@{tests.\+c}}
+\subsubsection{test\+Same\+Content()}
+{\footnotesize\ttfamily bool test\+Same\+Content (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Tests to see if the same\+Content function works 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise. 
+\end{DoxyReturn}
+
+
+References same\+Content().
+
+
+
+Referenced by tests().
+

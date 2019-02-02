@@ -1,0 +1,298 @@
+\section{production.\+c File Reference}
+\label{production_8c}\index{production.\+c@{production.\+c}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}production.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ production} (int argc, char $\ast$argv[$\,$])
+\item 
+void \textbf{ Play\+One} (unsigned int nr, unsigned int nc, char $\ast$Old, char $\ast$New)
+\item 
+void \textbf{ usage} (void)
+\item 
+char \textbf{ get\+Letter} (int row, int col, int n\+Cols, char $\ast$Old)
+\item 
+int \textbf{ How\+Many\+Neighbors} (int row, int col, int n\+Rows, int n\+Cols, char $\ast$Old)
+\item 
+void \textbf{ read\+File\+Into\+Array} (int n\+Rows, int n\+Cols, int how\+Many\+Lines\+In\+File, int maximum\+Width, char $\ast$ar\+\_\+p, F\+I\+LE $\ast$fp)
+\item 
+int \textbf{ generate} (int gens, int n\+Rows, int n\+Cols, char $\ast$old\+\_\+p, char $\ast$new\+\_\+p, char $\ast$other\+\_\+p, char print, char pause)
+\item 
+bool \textbf{ anyX} (char $\ast$arr, int n\+Rows, int n\+Cols)
+\item 
+bool \textbf{ same\+Content} (char $\ast$one\+\_\+p, char $\ast$another\+\_\+p, int n\+Rows, int n\+Cols)
+\item 
+void \textbf{ print\+This} (int n\+Rows, int n\+Cols, char $\ast$old\+\_\+p)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\label{production_8c_a85f4ceb7eddb00ab9989daf800a74d3f}} 
+\index{production.\+c@{production.\+c}!anyX@{anyX}}
+\index{anyX@{anyX}!production.\+c@{production.\+c}}
+\subsubsection{any\+X()}
+{\footnotesize\ttfamily bool anyX (\begin{DoxyParamCaption}\item[{char $\ast$}]{arr,  }\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols }\end{DoxyParamCaption})}
+
+Checks to see if a 2D array has any \textquotesingle{}x\textquotesingle{}s in it 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the array to look through \\
+\hline
+{\em int} & the number of rows in arr \\
+\hline
+{\em int} & the number of columns in n\+Cols \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if contains an x, false otherwise. 
+\end{DoxyReturn}
+
+
+Referenced by generate(), and test\+Any\+X().
+
+\mbox{\label{production_8c_a7986ca2f4339fb9c9d88ac88dff0f34d}} 
+\index{production.\+c@{production.\+c}!generate@{generate}}
+\index{generate@{generate}!production.\+c@{production.\+c}}
+\subsubsection{generate()}
+{\footnotesize\ttfamily int generate (\begin{DoxyParamCaption}\item[{int}]{gens,  }\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols,  }\item[{char $\ast$}]{old\+\_\+p,  }\item[{char $\ast$}]{new\+\_\+p,  }\item[{char $\ast$}]{other\+\_\+p,  }\item[{char}]{print,  }\item[{char}]{pause }\end{DoxyParamCaption})}
+
+Generates all generations of the given (valid!) gameboard until the end conditions are met or you reach the maximum number of generations. The end conditions are if a pattern repeats over one or two generations, or if everyone dies off 
+\begin{DoxyParams}{Parameters}
+{\em int} & the number of generations to run the program for \\
+\hline
+{\em int} & the number of rows in the 2D arrays \\
+\hline
+{\em int} & the number of colums in the 2D arrays \\
+\hline
+{\em char$\ast$} & a pointer to the initial 2D array that is being changed to the next generation \\
+\hline
+{\em char$\ast$} & a pointer to the new generation created by calling Play\+One on old\+\_\+p \\
+\hline
+{\em char$\ast$} & a pointer to a generation one before old\+\_\+p. \\
+\hline
+{\em char} & either \textquotesingle{}y\textquotesingle{} or \textquotesingle{}n\textquotesingle{}, if \textquotesingle{}y\textquotesingle{} the function prints every generation but if \textquotesingle{}n\textquotesingle{} it prints only the first and last generation \\
+\hline
+{\em char} & either \textquotesingle{}y\textquotesingle{} or \textquotesingle{}n\textquotesingle{}, if \textquotesingle{}y\textquotesingle{} the function waits for a keypress before continuing to the next generation, if \textquotesingle{}n\textquotesingle{} it proceeds from one generation to the other automatically. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int the number of generations passed. 
+\end{DoxyReturn}
+
+
+References any\+X(), Play\+One(), print\+This(), and same\+Content().
+
+
+
+Referenced by production().
+
+\mbox{\label{production_8c_adc602acdc7ecd4199ad2b30ac03feb52}} 
+\index{production.\+c@{production.\+c}!get\+Letter@{get\+Letter}}
+\index{get\+Letter@{get\+Letter}!production.\+c@{production.\+c}}
+\subsubsection{get\+Letter()}
+{\footnotesize\ttfamily char get\+Letter (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{n\+Cols,  }\item[{char $\ast$}]{Old }\end{DoxyParamCaption})}
+
+Gets a character from a 2D array 
+\begin{DoxyParams}{Parameters}
+{\em int} & the row number we want to go to \\
+\hline
+{\em int} & the column number we want to go to \\
+\hline
+{\em int} & the number of columns in the array \\
+\hline
+{\em char$\ast$} & a pointer to the 2D array that we want to go through \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char the letter found at O\+Ld[row][col] 
+\end{DoxyReturn}
+
+
+Referenced by How\+Many\+Neighbors(), Play\+One(), print\+This(), and same\+Content().
+
+\mbox{\label{production_8c_ab629e8f86e0183efbb59ef24422116cb}} 
+\index{production.\+c@{production.\+c}!How\+Many\+Neighbors@{How\+Many\+Neighbors}}
+\index{How\+Many\+Neighbors@{How\+Many\+Neighbors}!production.\+c@{production.\+c}}
+\subsubsection{How\+Many\+Neighbors()}
+{\footnotesize\ttfamily int How\+Many\+Neighbors (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols,  }\item[{char $\ast$}]{Old }\end{DoxyParamCaption})}
+
+Figures out how many neighbors (defined as \textquotesingle{}x\textquotesingle{}s) a character has next to it in Old 
+\begin{DoxyParams}{Parameters}
+{\em int} & the row for the character we are looking around \\
+\hline
+{\em int} & the column for the character we are looking around \\
+\hline
+{\em int} & the number of rows in Old \\
+\hline
+{\em int} & the number of columns in O\+Ld \\
+\hline
+{\em char$\ast$} & a pointer to the 2D array we are looking through \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int a number between 0 and 8 for how many \textquotesingle{}x\textquotesingle{}s the character at Old[row][col] has around it 
+\end{DoxyReturn}
+
+
+References get\+Letter().
+
+
+
+Referenced by Play\+One(), and test\+Neighbors().
+
+\mbox{\label{production_8c_af5b14d1dae61b5bee7bc0c3aa0dea79e}} 
+\index{production.\+c@{production.\+c}!Play\+One@{Play\+One}}
+\index{Play\+One@{Play\+One}!production.\+c@{production.\+c}}
+\subsubsection{Play\+One()}
+{\footnotesize\ttfamily void Play\+One (\begin{DoxyParamCaption}\item[{unsigned int}]{nr,  }\item[{unsigned int}]{nc,  }\item[{char $\ast$}]{Old,  }\item[{char $\ast$}]{New }\end{DoxyParamCaption})}
+
+Play\+One carries out one generation 
+\begin{DoxyParams}{Parameters}
+{\em unsigned-\/int} & the number of rows in the petri dish \\
+\hline
+{\em unsigned-\/int} & the number of columns in the petri dish \\
+\hline
+{\em char$\ast$} & the location of the upper left of starting petri dish \\
+\hline
+{\em char$\ast$} & the location of the upper left of the ending petri dish \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+There is none, because results are in New array 
+\end{DoxyReturn}
+
+
+References get\+Letter(), and How\+Many\+Neighbors().
+
+
+
+Referenced by generate(), and test\+Play\+One().
+
+\mbox{\label{production_8c_ab73ab2c09c3d3d34fa5239433d488ff9}} 
+\index{production.\+c@{production.\+c}!print\+This@{print\+This}}
+\index{print\+This@{print\+This}!production.\+c@{production.\+c}}
+\subsubsection{print\+This()}
+{\footnotesize\ttfamily void print\+This (\begin{DoxyParamCaption}\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols,  }\item[{char $\ast$}]{old\+\_\+p }\end{DoxyParamCaption})}
+
+Prints the entire 2D array passed into it, giving a blank space if \textquotesingle{}o\textquotesingle{} found and an \textquotesingle{}x\textquotesingle{} if \textquotesingle{}x\textquotesingle{} found 
+\begin{DoxyParams}{Parameters}
+{\em int} & the number of rows in the 2D array \\
+\hline
+{\em int} & the number of columns in the 2D array \\
+\hline
+{\em char$\ast$} & the pointer to the 2D array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+References get\+Letter().
+
+
+
+Referenced by generate().
+
+\mbox{\label{production_8c_a9f67b51c42a54745557e7a2c9c07c46f}} 
+\index{production.\+c@{production.\+c}!production@{production}}
+\index{production@{production}!production.\+c@{production.\+c}}
+\subsubsection{production()}
+{\footnotesize\ttfamily bool production (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv[$\,$] }\end{DoxyParamCaption})}
+
+Runs the program by scanning in the file, and sending the file data over to be decrypted and used by Play\+One and generation 
+\begin{DoxyParams}{Parameters}
+{\em int} & the number of arguments \\
+\hline
+{\em char$\ast$} & the array of arguments, with [0] being the name of the program \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false otherwise 
+\end{DoxyReturn}
+
+
+References generate(), read\+File\+Into\+Array(), and usage().
+
+
+
+Referenced by main().
+
+\mbox{\label{production_8c_a0acda6eca9bfeb1059c53811d22b7996}} 
+\index{production.\+c@{production.\+c}!read\+File\+Into\+Array@{read\+File\+Into\+Array}}
+\index{read\+File\+Into\+Array@{read\+File\+Into\+Array}!production.\+c@{production.\+c}}
+\subsubsection{read\+File\+Into\+Array()}
+{\footnotesize\ttfamily void read\+File\+Into\+Array (\begin{DoxyParamCaption}\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols,  }\item[{int}]{how\+Many\+Lines\+In\+File,  }\item[{int}]{maximum\+Width,  }\item[{char $\ast$}]{ar\+\_\+p,  }\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+Takes a file that contains \textquotesingle{}o\textquotesingle{}s and \textquotesingle{}x\textquotesingle{}s and puts it into a 2D array 
+\begin{DoxyParams}{Parameters}
+{\em int} & the number of rows of the 2D array \\
+\hline
+{\em int} & the number of columns in the 2D array \\
+\hline
+{\em int} & the number of lines in the file \\
+\hline
+{\em int} & the maximum row size found in the file \\
+\hline
+{\em char$\ast$} & a pointer to the 2D array that is going to be filled \\
+\hline
+{\em F\+I\+L\+E$\ast$} & a pointer to the file that we are reading \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Referenced by production().
+
+\mbox{\label{production_8c_a6bc14537b7dc8361ace9f0ee6aa49440}} 
+\index{production.\+c@{production.\+c}!same\+Content@{same\+Content}}
+\index{same\+Content@{same\+Content}!production.\+c@{production.\+c}}
+\subsubsection{same\+Content()}
+{\footnotesize\ttfamily bool same\+Content (\begin{DoxyParamCaption}\item[{char $\ast$}]{one\+\_\+p,  }\item[{char $\ast$}]{another\+\_\+p,  }\item[{int}]{n\+Rows,  }\item[{int}]{n\+Cols }\end{DoxyParamCaption})}
+
+Checks to see if two same-\/size 2D arrays have the same content 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & one of the 2D arrays \\
+\hline
+{\em char$\ast$} & the other 2D array \\
+\hline
+{\em int} & the number of rows for both of the arrays \\
+\hline
+{\em int} & the number of columns for both of the arrays \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if same content, false otherwise 
+\end{DoxyReturn}
+
+
+References get\+Letter().
+
+
+
+Referenced by generate(), and test\+Same\+Content().
+
+\mbox{\label{production_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}} 
+\index{production.\+c@{production.\+c}!usage@{usage}}
+\index{usage@{usage}!production.\+c@{production.\+c}}
+\subsubsection{usage()}
+{\footnotesize\ttfamily void usage (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Function to print how to give program inputs to the program in case the user puts in the wrong args 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Referenced by production().
+

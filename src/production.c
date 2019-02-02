@@ -15,8 +15,8 @@
 /**
  * Runs the program by scanning in the file, and sending the file data over to be decrypted
  * and used by PlayOne and generation
- * @param int argc the number of arguments
- * @param char* argv the array of arguments, with [0] being the name of the program
+ * @param int the number of arguments
+ * @param char* the array of arguments, with [0] being the name of the program
  * @return true if succeed, false otherwise
  */
 bool production(int argc, char* argv[])
@@ -149,10 +149,10 @@ bool production(int argc, char* argv[])
 }
 /**
  * PlayOne carries out one generation
- * @param unsigned int nr, the number of rows in the petri dish
- * @param unsigned int nc, the number of columns in the petri dish
- * @param char* Old, the location of the upper left of starting petri dish
- * @param char* New, the location of the upper left of the ending petri dish
+ * @param unsigned-int the number of rows in the petri dish
+ * @param unsigned-int the number of columns in the petri dish
+ * @param char* the location of the upper left of starting petri dish
+ * @param char* the location of the upper left of the ending petri dish
  * @return There is none, because results are in New array
  */
 void PlayOne (unsigned int nr, unsigned int nc, char* Old, char* New)
@@ -206,10 +206,10 @@ void usage(void)
 
 /**
  * Gets a character from a 2D array
- * @param int row the row number we want to go to
- * @param int col the column number we want to go to
- * @param int nCols the number of columns in the array
- * @param char* Old a pointer to the 2D array that we want to go through
+ * @param int the row number we want to go to
+ * @param int the column number we want to go to
+ * @param int the number of columns in the array
+ * @param char* a pointer to the 2D array that we want to go through
  * @return char the letter found at OLd[row][col]
  */
 char getLetter(int row, int col, int nCols, char* Old)
@@ -219,11 +219,11 @@ char getLetter(int row, int col, int nCols, char* Old)
 
 /**
  * Figures out how many neighbors (defined as 'x's) a character has next to it in Old
- * @param int row the row for the character we are looking around
- * @param int col the column for the character we are looking around
- * @param int nRows the number of rows in Old
- * @param int nCols the number of columns in OLd
- * @param char* Old a pointer to the 2D array we are looking through
+ * @param int the row for the character we are looking around
+ * @param int the column for the character we are looking around
+ * @param int the number of rows in Old
+ * @param int the number of columns in OLd
+ * @param char* a pointer to the 2D array we are looking through
  * @return int a number between 0 and 8 for how many 'x's the character at Old[row][col] has around it
  */
 int HowManyNeighbors(int row, int col, int nRows, int nCols, char* Old)
@@ -294,12 +294,12 @@ int HowManyNeighbors(int row, int col, int nRows, int nCols, char* Old)
 
 /**
  * Takes a file that contains 'o's and 'x's and puts it into a 2D array
- * @param int nRows the number of rows of the 2D array
- * @param int nCols the number of columns in the 2D array
- * @param int howManyLinesInFile the number of lines in the file
- * @param int maximumWidth the maximum row size found in the file
- * @param char* ar_p a pointer to the 2D array that is going to be filled
- * @param FILE* fp a pointer to the file that we are reading
+ * @param int the number of rows of the 2D array
+ * @param int the number of columns in the 2D array
+ * @param int the number of lines in the file
+ * @param int the maximum row size found in the file
+ * @param char* a pointer to the 2D array that is going to be filled
+ * @param FILE* a pointer to the file that we are reading
  * @return none
  */
 void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximumWidth, char* ar_p, FILE* fp)
@@ -339,15 +339,15 @@ void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximum
  * Generates all generations of the given (valid!) gameboard until the end conditions are met or
  * you reach the maximum number of generations. The end conditions are if a pattern repeats
  * over one or two generations, or if everyone dies off
- * @param int gens the number of generations to run the program for
- * @param int nRows the number of rows in the 2D arrays
- * @param int nCols the number of colums in the 2D arrays
- * @param char* old_p a pointer to the initial 2D array that is being changed to the next generation
- * @param char* new_p a pointer to the new generation created by calling PlayOne on old_p
- * @param char* other_p a pointer to a generation one before old_p.
- * @param char print either 'y' or 'n', if 'y' the function prints every generation but if 'n'
+ * @param int the number of generations to run the program for
+ * @param int the number of rows in the 2D arrays
+ * @param int the number of colums in the 2D arrays
+ * @param char* a pointer to the initial 2D array that is being changed to the next generation
+ * @param char* a pointer to the new generation created by calling PlayOne on old_p
+ * @param char* a pointer to a generation one before old_p.
+ * @param char either 'y' or 'n', if 'y' the function prints every generation but if 'n'
  * it prints only the first and last generation
- * @param char pause either 'y' or 'n', if 'y' the function waits for a keypress before continuing to
+ * @param char either 'y' or 'n', if 'y' the function waits for a keypress before continuing to
  * the next generation, if 'n' it proceeds from one generation to the other automatically.
  * @return int the number of generations passed.
  */
@@ -425,9 +425,9 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 
 /**
  * Checks to see if a 2D array has any 'x's in it
- * @param char* arr the array to look through
- * @param nRows the number of rows in arr
- * @param nCols the number of columns in nCols
+ * @param char* the array to look through
+ * @param int the number of rows in arr
+ * @param int the number of columns in nCols
  * @return true if contains an x, false otherwise.
  */
 bool anyX(char* arr, int nRows, int nCols)
@@ -449,10 +449,10 @@ bool anyX(char* arr, int nRows, int nCols)
 
 /**
  * Checks to see if two same-size 2D arrays have the same content
- * @param char* one_p one of the 2D arrays
- * @param char* another_p the other 2D array
- * @param int nRows the number of rows for both of the arrays
- * @param int nCols the number of columns for both of the arrays
+ * @param char* one of the 2D arrays
+ * @param char* the other 2D array
+ * @param int the number of rows for both of the arrays
+ * @param int the number of columns for both of the arrays
  * @return true if same content, false otherwise
  */
 bool sameContent(char* one_p, char* another_p, int nRows, int nCols)
@@ -476,9 +476,9 @@ bool sameContent(char* one_p, char* another_p, int nRows, int nCols)
 
 /**
  * Prints the entire 2D array passed into it, giving a blank space if 'o' found and an 'x' if 'x' found
- * @param int nRows the number of rows in the 2D array
- * @param int nCols the number of columns in the 2D array
- * @param char* old_p the pointer to the 2D array
+ * @param int the number of rows in the 2D array
+ * @param int the number of columns in the 2D array
+ * @param char* the pointer to the 2D array
  * @return none
  */
 void printThis(int nRows, int nCols, char* old_p)

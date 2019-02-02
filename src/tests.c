@@ -11,6 +11,11 @@
 #include <stdlib.h>
 #include <string.h> //for strncmp
 
+/**
+ * Tests all the functions in this file to make sure they work
+ * @param none
+ * @return bool true if all pass, false if at least one fails
+ */
 bool tests(void)
 {
 	bool results=false;
@@ -32,6 +37,12 @@ bool tests(void)
 	printf("tests returning %d.\n",results);
 	return results;
 }
+
+/**
+ * Tests reading a file into an array
+ * @param none
+ * @return true if succeed, false otherwise
+ */
 bool testReadInput(void)
 {
 	//the plan is:
@@ -102,6 +113,12 @@ bool testReadInput(void)
 	results = ok1 && ok2 && ok3;
 	return results;
 }
+
+/**
+ * Tests creating an array and populating it
+ * @param none
+ * @return true if succeed, false otherwise
+ */
 bool testMakeArrays(void)
 {
 	bool results = false;
@@ -141,6 +158,12 @@ bool testMakeArrays(void)
 	results = ok1;
 	return results;
 }
+
+/**
+ * Tests to make sure playOne works and generates the correct nextBoard
+ * @param none
+ * @return true if succeed, false otherwise
+ */
 bool testPlayOne(void)
 {
 	bool results = false;
@@ -179,6 +202,11 @@ bool testPlayOne(void)
 	return results;
 }
 
+/**
+ * Tests to make sure that the correct number of neighbors are counted around a position in an array.
+ * @param none
+ * @return true if succeed, false otherwise
+ */
 bool testNeighbors(void) {
 	char board[4][3]={
 		{'o','x','o'},
@@ -193,6 +221,11 @@ bool testNeighbors(void) {
 	return ok1 && ok2;
 }
 
+/**
+ * Tests to make sure that anyX can find an x in an array
+ * @param none
+ * @return true if succeed, false otherwise
+ */
 bool testAnyX(void) {
 	char board[3][3]={
 		{'o','o','o'},
@@ -209,6 +242,11 @@ bool testAnyX(void) {
 	return !ok1 && ok2;
 }
 
+/**
+ * Tests to see if the sameContent function works
+ * @param none
+ * @return true if succeed, false otherwise.
+ */
 bool testSameContent(void) {
 	char board1[3][3]={
 		{'o','x','o'},

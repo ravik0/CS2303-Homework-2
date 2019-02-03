@@ -21,3 +21,6 @@ that data will be lost and it will be treated as 'o's, as the arrays will not ex
 
 Many of the functions were given to us from the sample code. They have been given doxygen 
 comments and some internal comments.
+
+I used http://conwaylife.appspot.com/pattern/acorn to play out acorn and other patterns for
+testing purposes.

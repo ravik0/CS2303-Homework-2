@@ -408,15 +408,15 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 				puts("Paused waiting for input.");
 				getc(stdin);//just waits for user input
 			}
+			if(gensDone == gens-1) {
+				puts("Final Configuration");
+				printThis(nRows,nCols, new_p);
+			}
 			//rotate pointers
 			char* temp = other_p;
 			other_p = old_p;
 			old_p = new_p;
 			new_p = temp;
-		}
-		if(gensDone == gens-1) {
-			puts("Final Configuration");
-			printThis(nRows,nCols, new_p);
 		}
 	}//end of generations
 

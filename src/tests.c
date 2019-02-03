@@ -25,7 +25,9 @@ bool tests(void)
 	bool ok2 = testMakeArrays();
 	if(ok2)puts("Was able to allocate the arrays ok.");
 	bool ok3 = testPlayOne();
-	if(ok3)puts("playOne is ok.");
+	bool ok7 = testPlayOneTwo();
+	bool ok8 = testPlayOneThree();
+	if(ok3 && ok7 && ok8)puts("playOne is ok.");
 	bool ok4 = testNeighbors();
 	if(ok4)puts("howManyNeighbors is ok.");
 	bool ok5 = testAnyX();
@@ -33,7 +35,7 @@ bool tests(void)
 	bool ok6 = testSameContent();
 	if(ok6)puts("sameContent is ok.");
 	puts("end of tests");
-	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6;
+	results = ok1 && ok2 && ok3 && ok4 && ok5 && ok6 && ok7 && ok8;
 	printf("tests returning %d.\n",results);
 	return results;
 }
@@ -202,6 +204,82 @@ bool testPlayOne(void)
 	return results;
 }
 
+/**
+ * Checks that the acorn pattern correctly plays itself out over 3 generations
+ * @param none
+ * @return none
+ */
+bool testPlayOneTwo(void) {
+	char initialBoard[10][10];
+	char finalBoard[10][10];
+	for(int i = 0; i < 10; i++) {
+		for(int j = 0; j < 10; j++) {
+			initialBoard[i][j] = 'o';
+			finalBoard[i][j] = 'o';
+		}
+	}
+	FILE* fp = fopen("src/acorn.txt", "r");
+	readFileIntoArray(10, 10, 3, 8, (char*)initialBoard, fp);
+	//do 3 gens
+	PlayOne(10,10,initialBoard,finalBoard);
+	PlayOne(10,10,finalBoard,initialBoard);
+	PlayOne(10,10,initialBoard,finalBoard);
+	//gens complete
+	char correctBoard[10][10] = {
+			{"oooooooooo"},
+			{"oooooooooo"},
+			{"oooooooooo"},
+			{"ooooxoxooo"},
+			{"ooxxoxxxoo"},
+			{"oooooxooxo"},
+			{"ooooooxxoo"},
+			{"oooooooooo"},
+			{"oooooooooo"},
+			{"oooooooooo"}
+	};
+	return sameContent(finalBoard, correctBoard, 10, 10);
+}
+
+/**
+ * Checks that the diehard pattern correctly plays itself out over 3 generations
+ * @param none
+ * @return none
+ */
+bool testPlayOneThree(void) {
+	char initialBoard[15][15];
+	char finalBoard[15][15];
+	for(int i = 0; i < 15; i++) {
+		for(int j = 0; j < 15; j++) {
+			initialBoard[i][j] = 'o';
+			finalBoard[i][j] = 'o';
+		}
+	}
+	FILE* fp = fopen("src/diehard.txt", "r");
+	readFileIntoArray(15, 15, 3, 9, (char*)initialBoard, fp);
+	//do 3 gens
+	PlayOne(15,15,initialBoard,finalBoard);
+	PlayOne(15,15,finalBoard,initialBoard);
+	PlayOne(15,15,initialBoard,finalBoard);
+	//gens complete
+	char correctBoard[15][15] = {
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooxxoooxxxooo"},
+			{"ooooxxoooxxxooo"},
+			{"ooooooooooxoooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"},
+			{"ooooooooooooooo"}
+	};
+	return sameContent(finalBoard, correctBoard, 10, 10);
+}
 /**
  * Tests to make sure that the correct number of neighbors are counted around a position in an array.
  * @param none

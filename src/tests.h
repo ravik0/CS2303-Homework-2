@@ -15,6 +15,8 @@
  bool testNeighbors(void);
  bool testAnyX(void);
  bool testSameContent(void);
+ bool testPlayOneTwo(void);
+ bool testPlayOneThree(void);
 
 
 #endif /* TESTS_H_ */

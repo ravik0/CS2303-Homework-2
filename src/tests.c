@@ -18,7 +18,9 @@
  */
 bool tests(void)
 {
-	bool results=false;
+	//all variable declerations starting with "ok" are just boolean placeholders to say
+	//if the test worked or not
+	bool results=false; //results of tests
 	puts("During tests");
 	bool ok1 = testReadInput();
 	if(ok1)puts("Found and read the test file.");
@@ -210,8 +212,8 @@ bool testPlayOne(void)
  * @return none
  */
 bool testPlayOneTwo(void) {
-	char initialBoard[10][10];
-	char finalBoard[10][10];
+	char initialBoard[10][10]; //intial board
+	char finalBoard[10][10]; //what we will check against
 	for(int i = 0; i < 10; i++) {
 		for(int j = 0; j < 10; j++) {
 			initialBoard[i][j] = 'o';
@@ -236,7 +238,7 @@ bool testPlayOneTwo(void) {
 			{"oooooooooo"},
 			{"oooooooooo"},
 			{"oooooooooo"}
-	};
+	}; //correct configuration
 	return sameContent(finalBoard, correctBoard, 10, 10);
 }
 
@@ -246,8 +248,8 @@ bool testPlayOneTwo(void) {
  * @return none
  */
 bool testPlayOneThree(void) {
-	char initialBoard[15][15];
-	char finalBoard[15][15];
+	char initialBoard[10][10]; //intial board
+	char finalBoard[10][10]; //what we will check against
 	for(int i = 0; i < 15; i++) {
 		for(int j = 0; j < 15; j++) {
 			initialBoard[i][j] = 'o';
@@ -277,7 +279,7 @@ bool testPlayOneThree(void) {
 			{"ooooooooooooooo"},
 			{"ooooooooooooooo"},
 			{"ooooooooooooooo"}
-	};
+	}; //what we will check against
 	return sameContent(finalBoard, correctBoard, 10, 10);
 }
 /**
@@ -291,7 +293,7 @@ bool testNeighbors(void) {
 		{'x','o','x'},
 		{'x','x','x'},
 		{'o','x','o'}
-	};
+	}; //board to look at
 	int neighborCount = HowManyNeighbors(0, 1, 4, 3, (char*)board);
 	bool ok1 = neighborCount == 2;
 	int count2 = HowManyNeighbors(2, 1, 4, 3, (char*)board);

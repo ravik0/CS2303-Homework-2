@@ -21,20 +21,20 @@
  */
 bool production(int argc, char* argv[])
 {
-	bool results = false;
-	bool done = false;
-	int nRows=-1;
-	int nCols = -1;
+	bool results = false; //what we return at end
+	bool done = false; //is the program done or not
+	int nRows=-1; //nRows value, not correct
+	int nCols = -1; //nCols value, not correct
 	int gens = 0; //number of generations to play
-	int howManyLinesInFile = 0;
-	int maximumWidth = 0;
-	char filename[100];
+	int howManyLinesInFile = 0; //number of rows in file
+	int maximumWidth = 0; //max number of columns in file
+	char filename[100]; //filename string
 	for(int i= 0; i<100; i++)
 	{
 		filename[i]='\0';
 	}
-	char print = 'n';
-	char pause = 'n';
+	char print = 'n'; //print after every generation? y or n
+	char pause = 'n'; //pause after every generation? y or n
 	//etc.
 	//get the NR NC gens input [print] [pause], Usage as needed.
 	if(argc<5)//not all mandatory args provided
@@ -54,7 +54,7 @@ bool production(int argc, char* argv[])
 	if(!done)//must be greater than or equal to 5, so get the mandatory vals
 	{
 
-		char* ptr=0;
+		char* ptr=0; //a ptr for whatever comes after argv[i], ignore it
 		long nr_l = strtol(argv[1],&ptr,10);//get the NR
 		nRows = (int)nr_l;
 		long nc_l = strtol(argv[2],&ptr,10);//get the NC
@@ -168,7 +168,7 @@ void PlayOne (unsigned int nr, unsigned int nc, char* Old, char* New)
 			//There are three rules,
 			// use occupied in old
 			//use neighbors in old
-			bool occupied = true;
+			bool occupied = true; //does the position have an x in it
 			occupied = 	(getLetter(row,col,nCols, Old)=='x');
 
 			if(occupied
@@ -228,7 +228,7 @@ char getLetter(int row, int col, int nCols, char* Old)
  */
 int HowManyNeighbors(int row, int col, int nRows, int nCols, char* Old)
 {
-	int howManyN = 0;
+	int howManyN = 0; //how many neighbors
 	//there could be as many as 8 neighbors
 	//cells on an edge or corner have fewer neighbors
 	//we will search for neighbors clockwise from NorthWest
@@ -353,9 +353,9 @@ void readFileIntoArray(int nRows, int nCols, int howManyLinesInFile, int maximum
  */
 int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* other_p, char print, char pause)
 {
-	int g = 0;
-	bool done = false;
-	bool firstTime = true;
+	int g = 0; //number of gens passed
+	bool done = false; //is program done
+	bool firstTime = true; //is this the furst running of the program
 
 	for(int gensDone = 0; !done && (gensDone<gens); gensDone++)
 	{
@@ -413,7 +413,9 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
 				printThis(nRows,nCols, new_p);
 			}
 			//rotate pointers
-			char* temp = other_p;
+			char* temp = other_p; //temp pointer to hold position of other_p, so we can set new
+			//to it and just musical chair it, as other_p doesn't really matter past this point.
+			//so it is okay to overwrite it.
 			other_p = old_p;
 			old_p = new_p;
 			new_p = temp;
@@ -432,7 +434,7 @@ int generate(int gens,  int nRows,  int nCols,  char* old_p, char* new_p, char* 
  */
 bool anyX(char* arr, int nRows, int nCols)
 {
-	bool any = false;
+	bool any = false; //any x?
 	for(int row=0; !any && (row<nRows); row++)
 	{
 		for(int col=0; !any && (col< nCols); col++)
@@ -487,7 +489,7 @@ void printThis(int nRows, int nCols, char* old_p)
 	{
 		for(int col=0;col<nCols;col++)
 		{
-			char letter = getLetter(row, col, nCols, old_p);
+			char letter = getLetter(row, col, nCols, old_p); //letter at position
 			if(letter == 'x') printf("%c", letter); //if its an 'x', print it
 			else printf(" "); //otherwise space
 		}
